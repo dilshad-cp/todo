@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path'); // Import the path module
 const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -16,7 +17,8 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopo
       console.error("Error connecting to MongoDB:", error);
     });
 
-// Set up EJS as the view engine
+// Set the correct path for views
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 
 // Middleware for handling form data
