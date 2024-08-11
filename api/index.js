@@ -25,7 +25,14 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
-app.use('/static', express.static('public'));
+app.use('/static', express.static(path.join(__dirname, '../public'), {
+  setHeaders: (res, path) => {
+      if (path.endsWith('.css')) {
+          res.setHeader('Content-Type', 'text/css');
+      }
+  }
+}));
+
 
 // GET METHOD
 app.get("/", async (req, res) => {
